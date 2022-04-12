@@ -18,3 +18,7 @@
 # Assets
 gifs/*
 !/gifs/.gitkeep
+
+# DB
+workouts.db
+workouts.db-journal
