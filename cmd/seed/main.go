@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path/filepath"
 
 	"github.com/dannyvidal/workout-service/internal/fitness"
 	_ "github.com/mattn/go-sqlite3"
@@ -18,9 +17,10 @@ const (
 
 func createWorkoutTable(db *sql.DB) {
 	SQL := `CREATE TABLE workouts (
-		"id" integer NOT NULL PRIMARY KEY,		
+		"id" integer NOT NULL PRIMARY KEY,
+		"bodypart"  TEXT,
 		"equipment" TEXT,
-		"gif"    TEXT,
+		"gif"       TEXT,
 		"name"      TEXT,
 		"target"    TEXT
 	);`
@@ -30,25 +30,22 @@ func createWorkoutTable(db *sql.DB) {
 	}
 	statement.Exec()
 }
-func insertWorkout(db *sql.DB, workout *fitness.FitnessExercise, gifAbs string) {
-	SQL := `INSERT INTO workouts(id, equipment, gif, name, target) VALUES(?,?,?,?,?)`
+func insertWorkout(db *sql.DB, workout *fitness.FitnessExercise) {
+	SQL := `INSERT INTO workouts(id, bodypart, equipment, gif, name, target) VALUES(?,?,?,?,?,?)`
 	statement, err := db.Prepare(SQL)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	statement.Exec(
 		workout.Id,
+		workout.BodyPart,
 		workout.Equipment,
-		fmt.Sprintf("%v/%v.gif", gifAbs, workout.Id),
+		fmt.Sprintf("/api/gifs/%v.gif", workout.Id),
 		workout.Name,
 		workout.Target,
 	)
 }
 func main() {
-	gifAbs, err := filepath.Abs("./gif")
-	if err != nil {
-		log.Fatal(err.Error())
-	}
 
 	workouts := fitness.ParseFE(FE_CSV)
 	os.Remove(DBNAME)
@@ -65,6 +62,6 @@ func main() {
 	defer sqlitedb.Close()
 	createWorkoutTable(sqlitedb)
 	for _, workouts := range workouts {
-		insertWorkout(sqlitedb, &workouts, gifAbs)
+		insertWorkout(sqlitedb, &workouts)
 	}
 }
