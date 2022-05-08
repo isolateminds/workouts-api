@@ -8,7 +8,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-var db = NewDB()
+var db = opendb()
 
 func scanQuery(exercises *sql.Rows) []FitnessExercise {
 
@@ -37,7 +37,7 @@ func QueryWorkouts(search string) []FitnessExercise {
 	return scanQuery(exercises)
 }
 
-func NewDB() *sql.DB {
+func opendb() *sql.DB {
 	db, err := sql.Open("sqlite3", "workouts.db")
 	if err != nil {
 		log.Fatal(err.Error())
