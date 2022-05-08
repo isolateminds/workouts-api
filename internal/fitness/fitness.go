@@ -14,6 +14,7 @@ type FitnessExercise struct {
 	Target    string `json:"target"`
 }
 
+// parses the fitness csv file and returns an array
 func ParseFE(path string) []FitnessExercise {
 
 	file, err := os.Open(path)
