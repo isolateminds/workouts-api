@@ -4,7 +4,7 @@ import (
 	"log"
 	"path/filepath"
 
-	"github.com/dannyvidal/workout-service/internal/fitness"
+	"github.com/isolateminds/workout-api/internal/fitness"
 	"github.com/gin-gonic/gin"
 )
 

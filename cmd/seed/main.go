@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/dannyvidal/workout-service/internal/fitness"
+	"github.com/isolateminds/workout-api/internal/fitness"
 	_ "github.com/mattn/go-sqlite3"
 )
 

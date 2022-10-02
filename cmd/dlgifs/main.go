@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/dannyvidal/workout-service/internal/fitness"
+	"github.com/isolateminds/workout-api/internal/fitness"
 )
 
 const FE_CSV = "./fitness_exercises.csv"
