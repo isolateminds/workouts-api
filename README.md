@@ -1,5 +1,5 @@
-# workout-service
-workout microservice api with workout names and gifs
+# workout-api
+workout api with workout names and gifs
 
 ## Downloading workout gifs
 Parses csv, downloads gifs
